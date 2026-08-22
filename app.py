@@ -1,6 +1,7 @@
 import streamlit as st
 from research import search_research
 from news import search_news
+from ai import generate_ai_summary
 
 # -------------------------------
 # Page Configuration
@@ -34,10 +35,14 @@ if st.button("Analyze", type="primary"):
     if keyword.strip() == "":
         st.warning("Please enter a keyword.")
     else:
-        st.success(f"Searching for: {keyword}")
 
-        papers = search_research(keyword)
-        news = search_news(keyword)
+        with st.spinner("🔍 Searching research papers, news, and generating AI insights..."):
+
+            papers = search_research(keyword)
+            news = search_news(keyword)
+            ai_summary = generate_ai_summary(keyword, papers, news)
+
+        st.success(f"✅ Analysis completed for: {keyword}")
 # -------------------------------
 # Divider
 # -------------------------------
@@ -46,7 +51,6 @@ st.divider()
 # -------------------------------
 # Empty Result Sections
 # -------------------------------
-st.subheader("📚 Research Papers")
 st.subheader("📚 Research Papers")
 
 if "papers" in locals():
@@ -62,7 +66,6 @@ if "papers" in locals():
     else:
         st.info("No research papers found.")
 
-st.subheader("📰 Industry News")
 st.subheader("📰 Industry News")
 
 if "news" in locals():
@@ -85,4 +88,6 @@ st.subheader("🏢 Competitor Intelligence")
 st.empty()
 
 st.subheader("🤖 AI Executive Summary")
-st.empty()
+
+if "ai_summary" in locals():
+    st.markdown(ai_summary)
