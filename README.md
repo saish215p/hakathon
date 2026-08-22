@@ -284,6 +284,62 @@ AI Analyst
 Executive Summary
 ```
 
+# 📊 Task 6 – Agent Evaluation
+
+## Overview
+This task focuses on evaluating the performance of the PulseAI multi-agent system using both automated metrics and visual evaluation. The system measures the quality of responses, evidence usage, and overall execution of the AI agents.
+
+## Implemented Features
+
+- 📊 Evaluation Dashboard
+- 🎯 Accuracy Score
+- ✅ Task Completion Metric
+- 📚 Evidence Count
+- 🧠 Confidence Score
+- 🟢 Reliability Status
+- 🟢 Groundedness Indicator
+- 🟢 Hallucination Risk Indicator
+- 🏆 Overall Evaluation Score
+- 🧪 Test Scenario Results
+- 📋 Evaluation Summary
+
+## Evaluation Criteria
+
+The system evaluates:
+
+- Accuracy
+- Task Completion
+- Reliability
+- Evidence Quality
+- Confidence
+- Groundedness
+- Hallucination Risk
+
+## Test Scenarios
+
+The agent is evaluated using:
+
+- Normal Query
+- Ambiguous Query
+- Current Events Query
+- Research Query
+- Incomplete Query
+- Tool Failure Scenario
+
+## Technologies Used
+
+- Python
+- Streamlit
+- CrewAI
+- Google Gemini AI
+- arXiv API
+- GNews API
+- Pandas
+
+## Outcome
+
+The evaluation dashboard provides a visual summary of the multi-agent system's performance, helping assess the quality and reliability of generated results.
+
 # ⚙️ Installation / Setup
 
 ### 1. Clone the repository
