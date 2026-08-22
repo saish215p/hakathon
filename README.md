@@ -161,6 +161,77 @@ The application stores:
 
 For follow-up queries, PulseAI automatically combines the user's query with the stored context.
 
+# 🤖 Task 5 – Agent Framework
+
+## Framework Used
+- CrewAI
+
+---
+
+## Multi-Agent Architecture
+
+The application uses four specialized agents:
+
+- 👨‍💼 Manager Agent
+- 📚 Research Agent
+- 📰 News Agent
+- 🧠 AI Analyst Agent
+
+---
+
+## Features Implemented
+
+### ✅ Dynamic Planning
+The Manager Agent creates an execution plan based on the user's query.
+
+### ✅ Conditional Routing
+The Manager Agent decides whether to execute:
+- Research Agent
+- News Agent
+- Both Agents
+
+depending on the search query.
+
+### ✅ Multi-Agent Orchestration
+The Manager Agent coordinates all agents and manages the execution workflow.
+
+### ✅ Shared State
+All agents work on the same search query and share the execution context.
+
+### ✅ Failure Recovery
+If an external service fails, the application continues execution instead of crashing.
+
+### ✅ Tool Fallback
+When the AI service is unavailable, the system switches to a local fallback summary.
+
+### ✅ Resource-Aware Execution
+The Manager Agent executes only the required agents, reducing unnecessary API calls.
+
+### ✅ Self-Evaluation
+After execution, the application displays the completion status of each agent and the overall workflow performance.
+
+---
+
+## Workflow
+
+```text
+User Query
+     │
+     ▼
+Manager Agent
+     │
+ ┌───┴────┐
+ │        │
+Research  News
+ Agent    Agent
+     │
+     ▼
+AI Analyst
+     │
+     ▼
+Executive Summary
+```
+
 ### Example
 
 ```
