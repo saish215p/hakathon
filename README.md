@@ -220,7 +220,7 @@ Enter a company or technology keyword and click **Analyze** to generate AI-power
 
 ## Api Dashboard
 
-![Api Dashboard] (screenshots/Dashboard.png)
+![API Dashboard](screenshots/dashboard.png)
 
 
 
