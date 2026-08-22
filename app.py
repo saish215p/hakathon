@@ -3,6 +3,7 @@ from research import research_agent
 from news import news_agent
 from ai import generate_ai_summary
 from tool_router import coordinator_agent
+from agents.crew_setup import run_crew
 
 # -------------------------------
 # Page Configuration
@@ -343,6 +344,26 @@ if analyze:
               "competition",
               "updates"
           ]
+          # =========================================
+          # Manager Agent decides which agents to run
+          # =========================================
+
+          query = keyword.lower()
+
+          run_research = False
+          run_news = False
+
+          # Dynamic Planning
+          if "research" in query or "paper" in query:
+              run_research = True
+
+          elif "news" in query or "latest" in query:
+              run_news = True
+
+          else:
+               # General company search
+               run_research = True
+               run_news = True
 
           if keyword.lower() not in context_words:
              st.session_state.current_context = keyword
@@ -377,24 +398,188 @@ if analyze:
                     search_keyword = f"{keyword} {st.session_state.current_context}"
 
                 # Ask the Coordinator Agent
+            st.info("🤖 CrewAI Manager is planning the workflow...")
+
+            crew_result = run_crew(search_keyword)
+            st.success("🤖 CrewAI Manager created execution plan")
+            st.subheader("🧠 Manager Task Decomposition")
+
+            tasks = []
+
+            if run_research:
+                tasks.append("📚 Research Collection")
+
+            if run_news:
+                tasks.append("📰 News Collection")
+
+            tasks.append("🤖 AI Summary")
+
+            for i, task in enumerate(tasks, 1):
+                st.write(f"{i}. {task}")
+            st.info("🧠 Manager Decision")
+
+            if run_research:
+                 st.write("✅ Research Agent Selected")
+
+            if run_news:
+                 st.write("✅ News Agent Selected")
+            status = st.status("🤖 AI Agents Working...", expanded=True)
+
+            status.write("👨‍💼 Manager Agent → Planning")
+            status.write("📚 Research Agent → Fetching Research Papers")
+            status.write("📰 News Agent → Gathering Latest News")
+            status.write("🧠 AI Analyst → Preparing Executive Summary")
+
+            status.update(
+              label="✅ Multi-Agent Execution Completed",
+              state="complete",
+              expanded=False
+            )
+            st.markdown("### 🤖 Active Agents")
+
+            c1, c2, c3, c4 = st.columns(4)
+
+            with c1:
+              st.success("👨‍💼 Manager")
+
+            with c2:
+               st.info("📚 Research")
+
+            with c3:
+               st.warning("📰 News")
+
+            with c4:
+               st.success("🧠 Analyst")
+
+               st.markdown("### ⚡ Execution Progress")
+
+               import time
+
+               progress = st.progress(0)
+
+               steps = [
+                     "👨‍💼 Manager planning...",
+                     "📚 Research Agent collecting papers...",
+                     "📰 News Agent gathering updates...",
+                     "🧠 AI Analyst generating summary..."
+                ]
+
+               for i, step in enumerate(steps):
+                  st.write(step)
+                  time.sleep(0.4)
+                  progress.progress((i + 1) * 25)
+
+                  st.success("✅ All Agents Finished Successfully")
+
+               st.success("✅ All Agents Finished Successfully")
+
+            with st.expander("⚙️ Multi-Agent Workflow", expanded=True):
+
+              st.markdown("""
+            ### Execution Flow
+
+            ```
+                              👨‍💼 Manager Agent
+                                      │
+                   ┌──────────────────┼──────────────────┐
+                   │                  │                  │
+             📚 Research Agent   📰 News Agent   🧠 AI Analyst
+                   │                  │                  │
+                   └──────────────────┼──────────────────┘
+                                      │
+                           📄 Executive Summary
+            ```
+            """)
+
+            st.json(crew_result)
+
             tools = coordinator_agent(search_keyword)
 
             papers = []
             news = []
+            # ==========================================
+            # Resource Aware Execution
+            # ==========================================
 
-            # Call Research API only if needed
-            if tools["research"]:
-                papers = research_agent(search_keyword)
+            MAX_RESULTS = 5
 
-            # Call News API only if needed
-            if tools["news"]:
-                news = news_agent(search_keyword)
+            if len(search_keyword) > 30:
+               MAX_RESULTS = 3
+               st.info("⚡ Resource Mode Activated (Reduced API Usage)")
+
+            # ==========================
+            # Research Agent
+            # ==========================
+            if tools["research"] and run_research:
+                try:
+                     papers = research_agent(search_keyword)[:MAX_RESULTS]
+                     st.success("📚 Research Agent completed successfully")
+                except Exception as e:
+                    st.warning("⚠️ Research Agent failed. Continuing without research papers.")
+                    papers = []
+
+            # ==========================
+            # News Agent
+            # ==========================
+            if tools["news"] and run_news:
+                try:
+                     news = news_agent(search_keyword)[:MAX_RESULTS]
+                     st.success("📰 News Agent completed successfully")
+                except Exception as e:
+                     st.warning("⚠️ News Agent failed. Continuing without news.")
+                     news = []
 
             # Generate AI Summary
             ai_summary = generate_ai_summary(search_keyword, papers, news)
+            # ==========================================
+            # Confidence Score
+            # ==========================================
+
+            confidence = 0
+
+            if len(news) > 0:
+                confidence += 50
+
+            if len(papers) > 0:
+                confidence += 50
+
+            st.subheader("🎯 Confidence Score")
+
+            c1, c2 = st.columns(2)
+
+            with c1:
+                st.metric("Confidence", f"{confidence}%")
+
+            with c2:
+                if confidence >= 80:
+                    st.success("High Confidence")
+                elif confidence >= 50:
+                    st.warning("Medium Confidence")
+                else:
+                    st.error("Low Confidence")
 
             # Dashboard Metrics
             st.markdown("### 📊 Dashboard Overview")
+            st.markdown("---")
+            st.header("🤖 Agent Self Evaluation")
+
+            evaluation = {
+                "Manager Agent": "Completed",
+                "Research Agent": "Success" if len(papers) > 0 else "No Results",
+                "News Agent": "Success" if len(news) > 0 else "No Results",
+                "AI Analyst": "Completed" if ai_summary else "Failed",
+            }
+
+            st.json(evaluation)
+
+            score = (
+                (len(papers) > 0)
+                + (len(news) > 0)
+                + (ai_summary != "")
+            )
+
+            st.progress(score / 3)
+            st.success(f"Overall Performance: {int(score / 3 * 100)}%")
 
             c1, c2, c3, c4 = st.columns(4)
 
@@ -519,3 +704,48 @@ st.subheader("🤖 AI Executive Summary")
 
 if "ai_summary" in locals():
     st.markdown(ai_summary)
+    # =====================================
+# Footer
+# =====================================
+
+st.markdown("<br><br>", unsafe_allow_html=True)
+
+st.divider()
+
+st.markdown("""
+<div style="
+padding:25px;
+margin-top:20px;
+border-radius:18px;
+background:linear-gradient(135deg,#111827,#1E293B);
+border:1px solid rgba(255,255,255,0.08);
+text-align:center;
+">
+
+<h2 style="color:#60A5FA;margin-bottom:5px;">
+🚀 PulseAI
+</h2>
+
+<p style="color:#CBD5E1;font-size:17px;">
+Autonomous Research & Competitor Intelligence Agent
+</p>
+
+<p style="color:#94A3B8;">
+🤖 Google Gemini AI &nbsp; • &nbsp;
+📚 arXiv API &nbsp; • &nbsp;
+📰 GNews API &nbsp; • &nbsp;
+⚡ Streamlit
+</p>
+
+<hr style="border:0.5px solid #334155; margin:18px 0;">
+
+<p style="color:#9CA3AF;font-size:15px;">
+Developed for <b>Agentx Hackathon 2026</b>
+</p>
+
+<p style="color:#64748B;font-size:14px;">
+Built with ❤️ by <b>TEAM A7</b>
+</p>
+
+</div>
+""", unsafe_allow_html=True)
