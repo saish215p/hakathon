@@ -9,7 +9,7 @@
 - **Saish Pardeshi** – Team Leader
 - **Apurv Kulkarni**
 - **Akash Zarekar**
-- **Jay Bidawe**
+- **Jay Bidwe**
 - **Viren Mane**
 
 ---
@@ -28,10 +28,10 @@ PulseAI addresses this challenge by automatically collecting research papers and
 
 Users simply enter a company name, startup, or technology keyword. The application automatically:
 
-- Fetches the latest research papers from **arXiv**
-- Collects recent industry news using **GNews API**
-- Uses **Google Gemini AI** to analyze the collected information
-- Generates an executive summary with research trends, competitor insights, opportunities, risks, and recommended actions
+- 📚 Fetches the latest research papers from **arXiv**
+- 📰 Collects recent industry news using **GNews API**
+- 🤖 Uses **Google Gemini AI** to analyze the collected information
+- 📊 Generates an executive summary with research trends, competitor insights, opportunities, risks, and recommended actions
 
 This enables users to quickly understand recent developments without manually searching multiple websites.
 
@@ -62,6 +62,37 @@ This enables users to quickly understand recent developments without manually se
 - ⚠️ Risk & Opportunity Analysis
 - 💡 Actionable Recommendations
 - 🌐 Simple and Interactive Web Interface
+
+---
+
+# ✅ Task 2 – Dynamic Tool Calling
+
+PulseAI includes an intelligent **Tool Router** that dynamically decides which external APIs should be used based on the user's query instead of calling every API for every search.
+
+### Dynamic Tool Selection
+
+| User Query | APIs Used |
+|------------|-----------|
+| **latest Tesla news** | 📰 GNews API + 🤖 Gemini AI |
+| **AI research papers** | 📚 arXiv API + 🤖 Gemini AI |
+| **OpenAI** | 📚 arXiv API + 📰 GNews API + 🤖 Gemini AI |
+
+### Tool Routing Logic
+
+- 📚 **arXiv API** → Retrieves the latest research papers.
+- 📰 **GNews API** → Retrieves current industry news.
+- 🤖 **Google Gemini AI** → Generates executive summaries and strategic insights.
+- 🧠 **Tool Router** → Analyzes the user's query and intelligently selects the required APIs.
+
+### Agent Decision
+
+After every analysis, PulseAI displays:
+
+- 🛠️ Tools Used
+- 🧠 Agent Decision
+- 📊 Dashboard Overview
+
+This demonstrates transparent AI agent behavior by showing which external tools were selected and why, ensuring efficient and intelligent API usage.
 
 ---
 
@@ -110,7 +141,7 @@ The application will open in your browser at:
 http://localhost:8501
 ```
 
-Enter a company or technology keyword and click **Analyze** to generate insights.
+Enter a company or technology keyword and click **Analyze** to generate AI-powered insights.
 
 ---
 
@@ -118,13 +149,17 @@ Enter a company or technology keyword and click **Analyze** to generate insights
 
 ## Home Page
 
-![Home](screenshots/home.png)
-
----
+![Home Page](screenshots/home.png)
 
 ## Analysis Results
 
-![Results](screenshots/results.png)
+![Analysis Results](screenshots/results.png)
+
+## Api Dashboard
+
+![Api Dashboard] (screenshots/Dashboard.png)
+
+
 
 ---
 
@@ -150,4 +185,4 @@ This project was developed for a Hackathon and is intended for educational and d
 
 Thank you for exploring **PulseAI**.
 
-Built with ❤️ using Python, Streamlit, Google Gemini AI, arXiv API, and GNews API.
+Built with ❤️ using **Python**, **Streamlit**, **Google Gemini AI**, **arXiv API**, and **GNews API**.
