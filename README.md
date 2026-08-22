@@ -95,6 +95,69 @@ After every analysis, PulseAI displays:
 This demonstrates transparent AI agent behavior by showing which external tools were selected and why, ensuring efficient and intelligent API usage.
 
 ---
+---
+
+# ✅ Task 3 – Multi-Agent Architecture
+
+PulseAI is designed as a **Multi-Agent AI System**, where specialized agents collaborate to complete a user's request efficiently.
+
+## 🤖 Specialized Agents
+
+### 🎯 Coordinator Agent
+- Receives the user's query.
+- Analyzes the intent.
+- Decides which specialized agents should execute.
+- Coordinates the workflow.
+
+### 📚 Research Agent
+- Searches the arXiv API.
+- Retrieves research papers.
+- Returns structured research results.
+
+### 📰 News Agent
+- Searches the GNews API.
+- Retrieves the latest industry news.
+- Returns structured news articles.
+
+### 🤖 AI Analyst Agent
+- Collects outputs from the Research and News Agents.
+- Uses Google Gemini AI to analyze the information.
+- Generates:
+  - Executive Summary
+  - Research Trends
+  - Competitor Insights
+  - Opportunities
+  - Risks
+  - Recommended Actions
+
+---
+
+## 🔄 Multi-Agent Workflow
+
+```text
+                 User
+                   │
+                   ▼
+         🎯 Coordinator Agent
+                   │
+      ┌────────────┴────────────┐
+      ▼                         ▼
+📚 Research Agent        📰 News Agent
+      └────────────┬────────────┘
+                   ▼
+          🤖 AI Analyst Agent
+                   │
+                   ▼
+          PulseAI Dashboard
+```
+
+## 🤝 Agent Collaboration
+
+Each agent has a clearly defined responsibility.
+
+The Coordinator Agent intelligently determines which agents should be activated based on the user's query, ensuring efficient execution and avoiding unnecessary API calls.
+
+The outputs from the Research Agent and News Agent are combined and analyzed by the AI Analyst Agent to generate meaningful business insights.
 
 # ⚙️ Installation / Setup
 

@@ -1,8 +1,8 @@
 import streamlit as st
-from research import search_research
-from news import search_news
+from research import research_agent
+from news import news_agent
 from ai import generate_ai_summary
-from tool_router import choose_tools
+from tool_router import coordinator_agent
 
 # -------------------------------
 # Page Configuration
@@ -60,18 +60,18 @@ if analyze:
           with st.spinner("🔍 Searching research papers, news, and generating AI insights..."):
 
                # Ask the AI router which tools to use
-               tools = choose_tools(keyword)
+               tools = coordinator_agent(keyword)
 
                papers = []
                news = []
 
                # Call Research API only if needed
                if tools["research"]:
-                   papers = search_research(keyword)
+                   papers = research_agent(keyword)
 
                # Call News API only if needed
                if tools["news"]:
-                   news = search_news(keyword)
+                   news = news_agent(keyword)
 
                # Generate AI Summary
                ai_summary = generate_ai_summary(keyword, papers, news)
@@ -97,6 +97,20 @@ if analyze:
                    st.success("📰 GNews API")
 
                st.success("🤖 Gemini AI")
+               # -----------------------------------
+               # Active Agents
+               # -----------------------------------
+               st.markdown("### 🤝 Active Agents")
+
+               st.success("🎯 Coordinator Agent")
+
+               if tools["research"]:
+                   st.success("📚 Research Agent")
+
+               if tools["news"]:
+                   st.success("📰 News Agent")
+
+               st.success("🤖 AI Analyst Agent")
                # -----------------------------
                # Agent Decision
                # -----------------------------

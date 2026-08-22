@@ -1,3 +1,11 @@
+"""
+News Agent
+
+Responsibilities:
+- Search industry news.
+- Retrieve the latest news articles.
+- Return structured news results.
+"""
 import os
 import requests
 from dotenv import load_dotenv
@@ -9,7 +17,7 @@ GNEWS_API_KEY = os.getenv("GNEWS_API_KEY")
 BASE_URL = "https://gnews.io/api/v4/search"
 
 
-def search_news(keyword):
+def news_agent(keyword):
     """
     Fetch the latest 5 news articles from GNews.
 

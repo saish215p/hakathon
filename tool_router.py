@@ -1,4 +1,13 @@
-def choose_tools(query):
+"""
+Coordinator Agent
+
+Responsibilities:
+- Analyze the user's query.
+- Decide which specialized agents should run.
+- Coordinate the workflow between agents.
+"""
+
+def coordinator_agent(query):
     """
     Decide which external tools should be used
     based on the user's query.

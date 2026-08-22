@@ -1,3 +1,11 @@
+"""
+Research Agent
+
+Responsibilities:
+- Search research papers.
+- Retrieve paper details from arXiv.
+- Return structured research results.
+"""
 import requests
 import feedparser
 from urllib.parse import quote
@@ -6,7 +14,7 @@ from urllib.parse import quote
 ARXIV_API = "http://export.arxiv.org/api/query"
 
 
-def search_research(keyword):
+def research_agent(keyword):
     """
     Search arXiv for the latest 5 research papers.
 
