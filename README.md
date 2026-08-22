@@ -1,30 +1,153 @@
 # 🔍 PulseAI
 
-Autonomous Research & Competitor Intelligence Agent
+## Autonomous Research & Competitor Intelligence Agent
 
-## Overview
+---
 
-PulseAI is an AI-powered research assistant that automatically tracks research papers and industry news for a given company or technology and generates concise AI-powered insights using Google Gemini.
+# 👥 Team Members
 
-## Features
+- **Saish Pardeshi** – Team Leader
+- **Apurv Kulkarni**
+- **Akash Zarekar**
+- **Jay Bidawe**
+- **Viren Mane**
 
-- 📚 Research Paper Tracking (arXiv)
-- 📰 Industry News Monitoring (GNews)
-- 🤖 AI Executive Summary (Gemini)
-- 📈 Research Trend Analysis
-- 🏢 Competitor Intelligence
-- ⚡ Fast Streamlit Dashboard
+---
 
-## Tech Stack
+# 📌 Problem Statement
+
+Organizations, startups, and research institutions operate in highly competitive and rapidly evolving environments where staying updated on research trends, competitor strategies, patent developments, and industry news is critical. Manually monitoring multiple information sources is time-consuming, inefficient, and prone to missing important updates.
+
+PulseAI addresses this challenge by automatically collecting research papers and industry news, then using Artificial Intelligence to generate concise, actionable insights that help users make informed decisions faster.
+
+---
+
+# 📖 Project Description
+
+**PulseAI** is an AI-powered Research & Competitor Intelligence Agent built using **Python**, **Streamlit**, and **Google Gemini AI**.
+
+Users simply enter a company name, startup, or technology keyword. The application automatically:
+
+- Fetches the latest research papers from **arXiv**
+- Collects recent industry news using **GNews API**
+- Uses **Google Gemini AI** to analyze the collected information
+- Generates an executive summary with research trends, competitor insights, opportunities, risks, and recommended actions
+
+This enables users to quickly understand recent developments without manually searching multiple websites.
+
+---
+
+# 🛠 Technologies Used
 
 - Python
 - Streamlit
-- Google Gemini
-- GNews API
+- Google Gemini AI
 - arXiv API
+- GNews API
+- Requests
+- Feedparser
+- Python Dotenv
+- Git & GitHub
 
-## Installation
+---
+
+# ✨ Features
+
+- 🔍 Search by Company, Startup, or Technology
+- 📚 Latest Research Papers from arXiv
+- 📰 Real-Time Industry News
+- 🤖 AI-Powered Executive Summary
+- 📈 Research Trend Analysis
+- 🏢 Competitor Intelligence
+- ⚠️ Risk & Opportunity Analysis
+- 💡 Actionable Recommendations
+- 🌐 Simple and Interactive Web Interface
+
+---
+
+# ⚙️ Installation / Setup
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/saish215p/hakathon.git
+```
+
+### 2. Navigate to the project folder
+
+```bash
+cd hakathon
+```
+
+### 3. Install dependencies
 
 ```bash
 pip install -r requirements.txt
+```
+
+### 4. Create a `.env` file
+
+Add your API keys:
+
+```env
+GNEWS_API_KEY=YOUR_GNEWS_API_KEY
+GEMINI_API_KEY=YOUR_GEMINI_API_KEY
+```
+
+---
+
+# ▶️ How to Run the Project
+
+Run the following command:
+
+```bash
 python -m streamlit run app.py
+```
+
+The application will open in your browser at:
+
+```
+http://localhost:8501
+```
+
+Enter a company or technology keyword and click **Analyze** to generate insights.
+
+---
+
+# 📸 Screenshots
+
+## Home Page
+
+![Home](screenshots/home.png)
+
+---
+
+## Analysis Results
+
+![Results](screenshots/results.png)
+
+---
+
+# 🚀 Future Scope
+
+- Patent Database Integration
+- Social Media Monitoring
+- Google Scholar Integration
+- Email Notifications
+- Search History
+- Trend Analytics Dashboard
+- Multi-language Support
+
+---
+
+# 📄 License
+
+This project was developed for a Hackathon and is intended for educational and demonstration purposes.
+
+---
+
+## ⭐ Thank You
+
+Thank you for exploring **PulseAI**.
+
+Built with ❤️ using Python, Streamlit, Google Gemini AI, arXiv API, and GNews API.
