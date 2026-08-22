@@ -214,9 +214,6 @@ Enter a company or technology keyword and click **Analyze** to generate AI-power
 
 ![Home Page](screenshots/home.png)
 
-## Analysis Results
-
-![Analysis Results](screenshots/results.png)
 
 ## Api Dashboard
 

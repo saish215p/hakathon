@@ -12,45 +12,301 @@ st.set_page_config(
     page_icon="🔍",
     layout="wide"
 )
+st.markdown("""
+<style>
+
+/* Hide Streamlit Header */
+
+header{
+    visibility:hidden;
+}
+
+footer{
+    visibility:hidden;
+}
+
+/* Main Background */
+
+.stApp{
+    background: linear-gradient(
+        180deg,
+        #070B17 0%,
+        #0E1525 40%,
+        #111827 100%
+    );
+}
+
+/* Hero Card */
+
+.hero{
+
+padding:40px;
+
+border-radius:25px;
+
+background:linear-gradient(
+135deg,
+rgba(71,85,255,.30),
+rgba(0,212,255,.15)
+);
+
+backdrop-filter:blur(20px);
+
+border:1px solid rgba(255,255,255,.15);
+
+margin-bottom:25px;
+
+box-shadow:
+0 0 30px rgba(0,255,255,.15);
+
+}
+
+/* Hero Title */
+
+.hero h1{
+
+font-size:58px;
+
+color:white;
+
+margin-bottom:5px;
+
+}
+
+/* Hero Subtitle */
+
+.hero p{
+
+font-size:20px;
+
+color:#cbd5e1;
+
+}
+
+/* Search Card */
+
+.search-card{
+
+padding:25px;
+
+border-radius:20px;
+
+background:rgba(255,255,255,.05);
+
+border:1px solid rgba(255,255,255,.10);
+
+backdrop-filter:blur(15px);
+
+}
+
+/* Metric Cards */
+
+.metric-card{
+
+padding:20px;
+
+border-radius:18px;
+
+background:rgba(255,255,255,.04);
+
+border:1px solid rgba(255,255,255,.08);
+
+text-align:center;
+
+transition:.3s;
+
+}
+
+.metric-card:hover{
+
+transform:translateY(-6px);
+
+box-shadow:0 0 18px #4f46e5;
+
+}
+
+/* Section Title */
+
+.section-title{
+
+font-size:30px;
+
+font-weight:bold;
+
+color:white;
+
+margin-top:20px;
+
+margin-bottom:10px;
+
+}
+
+/* Buttons */
+
+.stButton > button{
+
+height:58px;
+
+font-size:22px;
+
+font-weight:bold;
+
+border-radius:16px;
+
+background:linear-gradient(
+90deg,
+#4F46E5,
+#06B6D4
+);
+
+border:none;
+
+color:white;
+
+transition:.35s;
+
+}
+
+.stButton > button:hover{
+
+transform:translateY(-3px);
+
+box-shadow:
+0 0 25px #06B6D4;
+
+}
+
+background:linear-gradient(
+90deg,
+#6366F1,
+#8B5CF6
+);
+
+color:white;
+
+font-size:18px;
+
+border-radius:14px;
+
+height:55px;
+
+border:none;
+
+transition:.3s;
+
+}
+
+.stButton>button:hover{
+
+box-shadow:0 0 25px #6366F1;
+
+transform:scale(1.02);
+
+}
+
+/* Text Input */
+
+.stTextInput > div > div > input{
+
+background:#0F172A;
+
+border:2px solid #4F46E5;
+
+color:white;
+
+font-size:20px;
+
+padding:16px;
+
+border-radius:16px;
+
+transition:.3s;
+
+}
+
+.stTextInput > div > div > input:focus{
+
+border:2px solid #00E5FF;
+
+box-shadow:0 0 25px rgba(0,229,255,.45);
+
+}
+
+background:#1E293B;
+
+color:white;
+
+border-radius:12px;
+
+border:1px solid #4F46E5;
+
+font-size:18px;
+
+}
+
+</style>
+""",unsafe_allow_html=True)
 
 # -------------------------------
 # Header
 # -------------------------------
-st.title("🔍 PulseAI")
-
-st.caption("Autonomous Research & Competitor Intelligence Dashboard")
-
 st.markdown("""
-### Stay ahead with AI-powered research and competitor intelligence.
+<div class="hero">
 
-Search any company, startup, or technology to instantly receive:
+<h1>🚀 PulseAI</h1>
 
-- 📚 Latest Research Papers
-- 📰 Industry News
-- 🤖 AI Executive Summary
-- 📈 Research Trends
-- 🏢 Competitor Insights
-""")
+<p>
+Autonomous Research & Competitor Intelligence Platform
+</p>
 
-st.divider()
+<p style="margin-top:20px;font-size:18px;color:#d1d5db;">
+Discover research papers, industry news, competitor insights and AI-powered executive summaries in one intelligent dashboard.
+</p>
+
+</div>
+""", unsafe_allow_html=True)
 
 # -------------------------------
 # Search Section
 # -------------------------------
-with st.container(border=True):
+# -------------------------------
+# Search Section
+# -------------------------------
 
-     st.info("💡 Search any company, startup, competitor, or technology.")
+st.markdown("""
+<div class="search-card">
 
-keyword = st.text_input(
-    "",
-    placeholder="🔍 Search Tesla, OpenAI, Quantum Computing..."
-)
+<h2 style="color:white;margin-bottom:10px;">
+⚡ AI Search Console
+</h2>
 
-analyze = st.button(
-    "🚀 Analyze",
-    type="primary",
-    use_container_width=True
-)
+<p style="color:#94a3b8;">
+Search any company, startup, technology or competitor.
+PulseAI automatically decides which AI agents and APIs should execute.
+</p>
+
+</div>
+""", unsafe_allow_html=True)
+
+left, right = st.columns([6,1])
+
+with left:
+
+    keyword = st.text_input(
+        "",
+        placeholder="🔍 Example: Tesla, OpenAI, Nvidia, Quantum Computing..."
+    )
+
+with right:
+
+    st.write("")
+    st.write("")
+
+    analyze = st.button(
+        "🚀",
+        use_container_width=True,
+        type="primary"
+    )
 
 if analyze:
     if keyword.strip() == "":
