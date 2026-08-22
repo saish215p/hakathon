@@ -8,10 +8,25 @@ from tool_router import coordinator_agent
 # Page Configuration
 # -------------------------------
 st.set_page_config(
+    
     page_title="PulseAI",
     page_icon="🔍",
     layout="wide"
 )
+# =====================================
+# Memory Initialization
+# =====================================
+
+if "history" not in st.session_state:
+    st.session_state.history = []
+
+if "last_query" not in st.session_state:
+    st.session_state.last_query = ""
+
+if "current_context" not in st.session_state:
+    st.session_state.current_context = ""
+
+#CSS START HERE   
 st.markdown("""
 <style>
 
@@ -312,74 +327,140 @@ if analyze:
     if keyword.strip() == "":
         st.warning("Please enter a keyword.")
     else:
+          # =====================================
+          # Save Search to Memory
+          # =====================================
+
+          st.session_state.last_query = keyword
+          context_words = [
+              "latest news",
+              "news",
+              "research",
+              "papers",
+              "paper",
+              "patents",
+              "competitors",
+              "competition",
+              "updates"
+          ]
+
+          if keyword.lower() not in context_words:
+             st.session_state.current_context = keyword
+
+          if keyword not in st.session_state.history:
+            st.session_state.history.append(keyword)
 
           with st.spinner("🔍 Searching research papers, news, and generating AI insights..."):
 
-               # Ask the AI router which tools to use
-               tools = coordinator_agent(keyword)
+               # =====================================
+               # Context Resolution
+               # =====================================
 
-               papers = []
-               news = []
+            context_keywords = [
+                "latest news",
+                "news",
+                "research",
+                "papers",
+                "paper",
+                "patents",
+                "competitors",
+                "competition",
+                "updates"
+                ]
 
-               # Call Research API only if needed
-               if tools["research"]:
-                   papers = research_agent(keyword)
+            search_keyword = keyword
 
-               # Call News API only if needed
-               if tools["news"]:
-                   news = news_agent(keyword)
+            if (
+                    keyword.lower() in context_keywords
+                    and st.session_state.current_context != ""
+            ):
+                    search_keyword = f"{keyword} {st.session_state.current_context}"
 
-               # Generate AI Summary
-               ai_summary = generate_ai_summary(keyword, papers, news)
+                # Ask the Coordinator Agent
+            tools = coordinator_agent(search_keyword)
 
-               # Dashboard Metrics
-               st.markdown("### 📊 Dashboard Overview")
+            papers = []
+            news = []
 
-               c1, c2, c3, c4 = st.columns(4)
+            # Call Research API only if needed
+            if tools["research"]:
+                papers = research_agent(search_keyword)
 
-               c1.metric("📚 Research Papers", len(papers))
-               c2.metric("📰 Industry News", len(news))
-               c3.metric("🤖 AI Status", "Ready")
-               c4.metric("🔍 Search", keyword)
+            # Call News API only if needed
+            if tools["news"]:
+                news = news_agent(search_keyword)
 
-               st.success(f"✅ Analysis completed for: {keyword}")
+            # Generate AI Summary
+            ai_summary = generate_ai_summary(search_keyword, papers, news)
 
-               st.markdown("### 🛠️ Tools Used")
+            # Dashboard Metrics
+            st.markdown("### 📊 Dashboard Overview")
 
-               if tools["research"]:
-                   st.success("📚 arXiv API")
+            c1, c2, c3, c4 = st.columns(4)
 
-               if tools["news"]:
-                   st.success("📰 GNews API")
+            c1.metric("📚 Research Papers", len(papers))
+            c2.metric("📰 Industry News", len(news))
+            c3.metric("🤖 AI Status", "Ready")
+            c4.metric("🔍 Search", keyword)
 
-               st.success("🤖 Gemini AI")
+            st.success(f"✅ Analysis completed for: {keyword}")
+            st.info(f"🧠 Active Context: {st.session_state.current_context}")
+            st.markdown("### 🧠 Memory Manager")
+
+            col1, col2 = st.columns(2)
+
+            with col1:
+                st.info(f"**Current Context:** {st.session_state.current_context}")
+
+            with col2:
+                st.info(f"**Last Query:** {st.session_state.last_query}")
+
+                st.markdown("### 📜 Search History")
+
+                if st.session_state.history:
+
+                    st.write(" ➜ ".join(st.session_state.history))
+
+                else:
+
+                    st.caption("No searches yet.")
+
+            st.markdown("### 🛠️ Tools Used")
+
+            if tools["research"]:
+                st.success("📚 arXiv API")
+
+            if tools["news"]:
+                st.success("📰 GNews API")
+
+            st.success("🤖 Gemini AI")
                # -----------------------------------
                # Active Agents
                # -----------------------------------
-               st.markdown("### 🤝 Active Agents")
+            st.markdown("### 🤝 Active Agents")
 
-               st.success("🎯 Coordinator Agent")
+            st.success("🎯 Coordinator Agent")
 
-               if tools["research"]:
-                   st.success("📚 Research Agent")
+            if tools["research"]:
+                st.success("📚 Research Agent")
 
-               if tools["news"]:
-                   st.success("📰 News Agent")
+            if tools["news"]:
+                st.success("📰 News Agent")
 
-               st.success("🤖 AI Analyst Agent")
-               # -----------------------------
-               # Agent Decision
-               # -----------------------------
-               st.markdown("### 🧠 Agent Decision")
+            st.success("🤖 AI Analyst Agent")
+            # -----------------------------
+            # Agent Decision
+            # -----------------------------
+            st.markdown("### 🧠 Agent Decision")
 
-               if tools["research"] and tools["news"]:
-                   st.info("The agent detected that both research papers and current news are required for this query.")
+            if tools["research"] and tools["news"]:
+                st.info("The agent detected that both research papers and current news are required for this query.")
 
-               elif tools["research"]:
-                     st.info("The agent detected a research-focused query and used only the arXiv API.")
-           
-               elif tools["news"]:
-                     st.info("The agent detected a news-focused query and used only the GNews API.")
+            elif tools["research"]:
+                    st.info("The agent detected a research-focused query and used only the arXiv API.")
+        
+            elif tools["news"]:
+                    st.info("The agent detected a news-focused query and used only the GNews API.")
 # -------------------------------
 # Divider
 # -------------------------------

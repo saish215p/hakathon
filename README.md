@@ -150,6 +150,59 @@ PulseAI is designed as a **Multi-Agent AI System**, where specialized agents col
                    ▼
           PulseAI Dashboard
 ```
+# ✅ Task 4 — Context & Memory Management
+
+PulseAI uses **Streamlit Session State** to maintain short-term memory across multiple interactions.
+
+The application stores:
+- 🧠 Current Context
+- 🔍 Last Query
+- 📜 Search History
+
+For follow-up queries, PulseAI automatically combines the user's query with the stored context.
+
+### Example
+
+```
+Search 1:
+Tesla
+
+Search 2:
+latest news
+
+Resolved Query:
+latest news Tesla
+```
+
+### Memory Workflow
+
+```text
+        User Query
+             │
+             ▼
+     Memory Manager
+   (Session State)
+      │      │
+      │      ├── Current Context
+      │      ├── Last Query
+      │      └── Search History
+      ▼
+ Context Resolution
+      ▼
+ Coordinator Agent
+      ▼
+ Research / News / AI Agents
+      ▼
+ AI Response
+```
+
+### ✔ Features
+
+- Short-Term Memory
+- Context-Aware Search
+- Search History Tracking
+- Current Context Management
+- Multi-Step Conversation Support
 
 ## 🤝 Agent Collaboration
 
