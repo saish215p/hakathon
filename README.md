@@ -161,6 +161,58 @@ The application stores:
 
 For follow-up queries, PulseAI automatically combines the user's query with the stored context.
 
+
+### Example
+
+```
+Search 1:
+Tesla
+
+Search 2:
+latest news
+
+Resolved Query:
+latest news Tesla
+```
+
+### Memory Workflow
+
+```text
+        User Query
+             │
+             ▼
+     Memory Manager
+   (Session State)
+      │      │
+      │      ├── Current Context
+      │      ├── Last Query
+      │      └── Search History
+      ▼
+ Context Resolution
+      ▼
+ Coordinator Agent
+      ▼
+ Research / News / AI Agents
+      ▼
+ AI Response
+```
+
+### ✔ Features
+
+- Short-Term Memory
+- Context-Aware Search
+- Search History Tracking
+- Current Context Management
+- Multi-Step Conversation Support
+
+## 🤝 Agent Collaboration
+
+Each agent has a clearly defined responsibility.
+
+The Coordinator Agent intelligently determines which agents should be activated based on the user's query, ensuring efficient execution and avoiding unnecessary API calls.
+
+The outputs from the Research Agent and News Agent are combined and analyzed by the AI Analyst Agent to generate meaningful business insights.
+
 # 🤖 Task 5 – Agent Framework
 
 ## Framework Used
@@ -231,57 +283,6 @@ AI Analyst
      ▼
 Executive Summary
 ```
-
-### Example
-
-```
-Search 1:
-Tesla
-
-Search 2:
-latest news
-
-Resolved Query:
-latest news Tesla
-```
-
-### Memory Workflow
-
-```text
-        User Query
-             │
-             ▼
-     Memory Manager
-   (Session State)
-      │      │
-      │      ├── Current Context
-      │      ├── Last Query
-      │      └── Search History
-      ▼
- Context Resolution
-      ▼
- Coordinator Agent
-      ▼
- Research / News / AI Agents
-      ▼
- AI Response
-```
-
-### ✔ Features
-
-- Short-Term Memory
-- Context-Aware Search
-- Search History Tracking
-- Current Context Management
-- Multi-Step Conversation Support
-
-## 🤝 Agent Collaboration
-
-Each agent has a clearly defined responsibility.
-
-The Coordinator Agent intelligently determines which agents should be activated based on the user's query, ensuring efficient execution and avoiding unnecessary API calls.
-
-The outputs from the Research Agent and News Agent are combined and analyzed by the AI Analyst Agent to generate meaningful business insights.
 
 # ⚙️ Installation / Setup
 
