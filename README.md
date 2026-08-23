@@ -482,6 +482,16 @@ Enter a company or technology keyword and click **Analyze** to generate AI-power
 
 ---
 
+## 🌐 Live Demo
+
+**Application**
+
+https://hakathon-12.streamlit.app
+
+## 💻 GitHub Repository
+
+https://github.com/saish215p/hakathon
+
 # 📄 License
 
 This project was developed for a Hackathon and is intended for educational and demonstration purposes.
