@@ -340,6 +340,72 @@ The agent is evaluated using:
 
 The evaluation dashboard provides a visual summary of the multi-agent system's performance, helping assess the quality and reliability of generated results.
 
+# 🔍 Task 7 – Advanced Tracing & Observability
+
+## Overview
+
+This task enhances PulseAI with end-to-end tracing and observability, enabling complete visibility into the execution of the multi-agent workflow. The system records agent activities, tool calls, execution time, failures, and recovery actions while providing a visual monitoring dashboard.
+
+---
+
+## Features
+
+- 🔍 End-to-End Agent Tracing
+- 🤖 Agent Decision Logging
+- 🛠️ Tool Call Monitoring
+- ⚡ Latency Tracking
+- 📊 Performance Dashboard
+- 📝 Execution Trace Dashboard
+- ❌ Error Logging
+- 🩺 Automatic Root Cause Analysis
+- 🔄 Controlled Failure Simulation
+- ✅ Automatic Recovery Strategy
+- 📈 Before vs After Performance Comparison
+- 📥 Trace Log Export (CSV)
+
+---
+
+## Observability Metrics
+
+The system monitors:
+
+- Agent Execution Flow
+- Tool Calls
+- Execution Latency
+- Error Count
+- Success Rate
+- Average Response Time
+- Workflow Completion
+
+---
+
+## Failure Handling
+
+The system can simulate tool failures to evaluate robustness.
+
+During failure:
+
+- Detects the error
+- Identifies the root cause
+- Logs the failure
+- Displays recovery strategy
+- Continues execution where possible
+
+---
+
+## Tech Stack
+
+- Python
+- Streamlit
+- CrewAI
+- Google Gemini AI
+- Pandas
+
+---
+
+## Outcome
+
+PulseAI now provides complete execution tracing, performance monitoring, failure analysis, and observability for every multi-agent workflow, improving transparency, debugging, and system reliability.
 # ⚙️ Installation / Setup
 
 ### 1. Clone the repository
