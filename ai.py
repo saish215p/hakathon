@@ -3,9 +3,17 @@ from dotenv import load_dotenv
 from google import genai
 
 # Load environment variables
+import streamlit as st
+
 load_dotenv()
 
-GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+GEMINI_API_KEY = (
+    os.getenv("GEMINI_API_KEY")
+    or st.secrets.get("GEMINI_API_KEY")
+)
+
+if not GEMINI_API_KEY:
+    raise ValueError("GEMINI_API_KEY not found.")
 
 # Initialize Gemini client
 client = genai.Client(api_key=GEMINI_API_KEY)
