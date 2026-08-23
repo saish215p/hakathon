@@ -1,4 +1,3 @@
-from crewai import Crew, Process
 
 from agents.manager import manager_agent
 from agents.research_agent import research_agent
